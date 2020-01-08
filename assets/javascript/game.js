@@ -43,6 +43,6 @@ document.onkeyup = function(event) {
 	// Populate a guess array with the values input
 	guessLetters.push(userGuess); 
 
-	document.querySelector('#guesses').innerHTML = guessLetters;
+	document.querySelector('#guesses').innerHTML = dispArray(guessLetters);
 
 };
