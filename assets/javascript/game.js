@@ -54,40 +54,46 @@ function correctGuess(hidden, guess, letter) {
 	return hidden;
 }
 
-
 // This function is run whenever the user presses a key.
 document.onkeyup = function(event) {
 
-	// Determines which key was pressed and converts to lowercase for ease of comparison
-	var userGuess = event.key.toLowerCase();  
-	
-	// check to see if the letter was already guessed or already found
-	if (guessLetters.indexOf(userGuess) === -1 && hiddenWord.indexOf(userGuess) ){
+	// Only perform this processing while there are guesses allowed!
+	if (remainingGuesses > 0) {
+		// Determines which key was pressed and converts to lowercase for ease of comparison
+		var userGuess = event.key.toLowerCase();  
+		
+		// check to see if the letter was already guessed or already found
+		if (guessLetters.indexOf(userGuess) === -1 && hiddenWord.indexOf(userGuess) ){
 
-		// Search the guess word to see if character is found
-		if (answer.indexOf(userGuess) != -1){
+			// Search the guess word to see if character is found
+			if (answer.indexOf(userGuess) != -1){
 
-			// see if the letter matches any positions in the answer and change those positions 
-			correctGuess(hiddenWord, answer, userGuess);
+				// see if the letter matches any positions in the answer and change those positions 
+				correctGuess(hiddenWord, answer, userGuess);
 
-			// update the page with the new results
-			document.querySelector('#hiddenword').innerHTML = dispArray(hiddenWord);
+				// update the page with the new results
+				document.querySelector('#hiddenword').innerHTML = dispArray(hiddenWord);
 
-		}
-		else {
+			}
+			else {
 
-			// Only populate a guess array with the values input when the letter is not found
-			guessLetters.push(userGuess); 
+				// Only populate a guess array with the values input when the letter is not found
+				guessLetters.push(userGuess); 
 
-			// update the display with the incorrectly guessed letters
-			document.querySelector('#guesses').innerHTML = dispArray(guessLetters);
+				// update the display with the incorrectly guessed letters
+				document.querySelector('#guesses').innerHTML = dispArray(guessLetters);
 
-			// Calculate the number of remaining guesses allowed as the difference between the max and the wrong guesses
-			remainingGuesses = allowedGuesses - guessLetters.length;
-			console.log(remainingGuesses);
-	
-		}
-	
-	};
+				// Calculate the number of remaining guesses allowed as the difference between the max and the wrong guesses
+				remainingGuesses = allowedGuesses - guessLetters.length;
+		
+			}
+		
+		};
+	}
+	// Too many guesses so this is a loss
+	else {
+		alert("Sorry, you lose!");
+	}
 
 };
+
