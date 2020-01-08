@@ -18,7 +18,17 @@ for (i=0; i < answer.length; i++){
 		hiddenWord.push("_");
 };
 
+// function to display an array with spaces in between characters instead of commas
+function dispArray (arr) {
+	var toDisplay = "";
+
+	for (i=0; i < arr.length; i++) {
+		toDisplay = toDisplay + " " + arr[i];
+	}
+	return "<p>" + toDisplay + "</p>"
+}
+
 // link the answer to the HTML so it is displayed
-document.querySelector('#hiddenword').innerHTML = hiddenWord;
+document.querySelector('#hiddenword').innerHTML = dispArray(hiddenWord);
 console.log(answer);
 console.log(hiddenWord);
