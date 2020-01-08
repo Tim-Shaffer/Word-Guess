@@ -9,7 +9,7 @@ var remainingGuesses = allowedGuesses;
 
 // Creates an array that lists out all of the possible words to be guessed.
 // start with one word for testing to be added onto later
-var words = ["hangman"];
+var words = ["hangman", "extroverted"];
 
 // Choose a Secret Word from the list
 function getSecretWord () {
@@ -18,6 +18,26 @@ function getSecretWord () {
 
 // Populate the word to be guessed from the array of possibilities
 var answer = getSecretWord();
+
+// Calculate the number of unique letters in the word to determine number of correct guesses needed to win
+function getWinningNumber (str) {
+	// create a new array from the string but only when the letter is unique
+	var unique = [];
+	// the first letter always needs to be counted at least once
+	unique.push(str[0]);
+	// loop through the rest of the string
+	for (i=1; i < str.length; i++) {
+		// see if there is a match already in the unique array
+		if (unique.indexOf(str[i]) === -1) {
+			unique.push(str[i]);	
+		}
+	}
+	return unique.length;
+}
+
+// create a variable to be used to see if all the correct letters were found 
+var correctLettersNeeded = getWinningNumber(answer);
+console.log(correctLettersNeeded);
 
 // Initialize the hiddenWord array with the underscores for the length of the guess word
 for (i=0; i < answer.length; i++){
