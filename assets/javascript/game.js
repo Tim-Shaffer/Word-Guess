@@ -17,5 +17,8 @@ var hiddenWord = [];
 for (i=0; i < answer.length; i++){
 		hiddenWord.push("_");
 };
+
+// link the answer to the HTML so it is displayed
+document.querySelector('#hiddenword').innerHTML = answer;
 console.log(answer);
 console.log(hiddenWord);
