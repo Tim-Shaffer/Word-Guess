@@ -61,26 +61,25 @@ document.onkeyup = function(event) {
 		// Populate a guess array with the values input
 		guessLetters.push(userGuess); 
 
+			// Search the guess word to see if character is found
+			if (answer.indexOf(userGuess) != -1){
+
+				// see if the letter matches any positions in the answer and change those positions 
+				correctGuess(hiddenWord, answer, userGuess);
+
+				// update the page with the new results
+				document.querySelector('#hiddenword').innerHTML = dispArray(hiddenWord);
+
+			}
+			else {
+	   
+				console.log("letter NOT found");
+		
+			}
+
 		// display the guessed letters
 		document.querySelector('#guesses').innerHTML = dispArray(guessLetters);
 	
 	};
-
-	// Search the guess word to see if character is found
-	if (answer.indexOf(userGuess) != -1){
-
-		// see if the letter matches any positions in the answer and change those positions 
-		correctGuess(hiddenWord, answer, userGuess);
-
-		// update the page with the new results
-		document.querySelector('#hiddenword').innerHTML = dispArray(hiddenWord);
-
-
-	}
-	else {
-	   
-		console.log("letter NOT found");
-		
-	}
 
 };
