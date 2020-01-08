@@ -25,11 +25,29 @@ for (i=0; i < answer.length; i++){
 };
 
 // function to display an array with spaces in between characters instead of commas
-function dispArray (arr) {
+function dispArray (arr, style=0) {
 	var toDisplay = "";
 
-	for (i=0; i < arr.length; i++) {
-		toDisplay = toDisplay + " " + arr[i].toUpperCase();
+	// Allow for function to work in multiple case scenarios
+	// 0 - default to existing case
+	// 1 - convert to upper case for display
+	// 2 - convert to lower case for display
+
+	if (style === 1){
+		for (i=0; i < arr.length; i++) {
+			toDisplay = toDisplay + " " + arr[i].toUpperCase();
+		}
+	}
+	else if (style === 2){
+		for (i=0; i < arr.length; i++) {
+			toDisplay = toDisplay + " " + arr[i].toLowerCase();
+		}	
+	}
+	// default to existing case 
+	else {
+		for (i=0; i < arr.length; i++) {
+			toDisplay = toDisplay + " " + arr[i];
+		}
 	}
 	return "<p>" + toDisplay + "</p>"
 };
@@ -76,7 +94,7 @@ function checkGuess(letter) {
 			guessLetters.push(letter); 
 
 			// update the display with the incorrectly guessed letters
-			document.querySelector('#guesses').innerHTML = dispArray(guessLetters);
+			document.querySelector('#guesses').innerHTML = dispArray(guessLetters, 1);
 
 			// Calculate the number of remaining guesses allowed as the difference between the max and the wrong guesses
 			remainingGuesses = allowedGuesses - guessLetters.length;
