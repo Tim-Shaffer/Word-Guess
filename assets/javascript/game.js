@@ -29,7 +29,7 @@ function dispArray (arr) {
 	var toDisplay = "";
 
 	for (i=0; i < arr.length; i++) {
-		toDisplay = toDisplay + " " + arr[i];
+		toDisplay = toDisplay + " " + arr[i].toUpperCase();
 	}
 	return "<p>" + toDisplay + "</p>"
 };
