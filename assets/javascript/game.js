@@ -1,9 +1,12 @@
 // Creates an array that lists out all of the possible words to be guessed.
-var wordsArray = ["hangman"];
+// start with one word for testing to be added onto later
+var answer = ["hangman"];
 
 // Choose a Secret Word from the list
 function getSecretWord () {
-	return wordsArray[Math.floor(Math.random() * wordsArray.length)]
+	return answer[Math.floor(Math.random() * answer.length)]
 };
 
-console.log(getSecretWord());
+// Populate the word to be guessed from the array of possibilities
+var guessWord = getSecretWord();
+console.log(guessWord);
