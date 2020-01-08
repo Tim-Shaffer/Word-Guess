@@ -26,9 +26,23 @@ function dispArray (arr) {
 		toDisplay = toDisplay + " " + arr[i];
 	}
 	return "<p>" + toDisplay + "</p>"
-}
+};
 
 // link the answer to the HTML so it is displayed
 document.querySelector('#hiddenword').innerHTML = dispArray(hiddenWord);
-console.log(answer);
-console.log(hiddenWord);
+
+// Create an array to store the letters guessed
+var guessLetters = [];
+
+// This function is run whenever the user presses a key.
+document.onkeyup = function(event) {
+
+	// Determines which key was pressed and converts to lowercase for ease of comparison
+	var userGuess = event.key.toLowerCase();   
+
+	// Populate a guess array with the values input
+	guessLetters.push(userGuess); 
+
+	document.querySelector('#guesses').innerHTML = guessLetters;
+
+};
