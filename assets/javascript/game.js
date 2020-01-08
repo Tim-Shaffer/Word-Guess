@@ -56,29 +56,28 @@ document.onkeyup = function(event) {
 	var userGuess = event.key.toLowerCase();  
 	
 	// check to see if the letter was already guessed 
-	if (guessLetters.indexOf(userGuess) === -1){
+	if (guessLetters.indexOf(userGuess) === -1 && hiddenWord.indexOf(userGuess) ){
 
-		// Populate a guess array with the values input
-		guessLetters.push(userGuess); 
+		// Search the guess word to see if character is found
+		if (answer.indexOf(userGuess) != -1){
 
-			// Search the guess word to see if character is found
-			if (answer.indexOf(userGuess) != -1){
+			// see if the letter matches any positions in the answer and change those positions 
+			correctGuess(hiddenWord, answer, userGuess);
 
-				// see if the letter matches any positions in the answer and change those positions 
-				correctGuess(hiddenWord, answer, userGuess);
+			// update the page with the new results
+			document.querySelector('#hiddenword').innerHTML = dispArray(hiddenWord);
 
-				// update the page with the new results
-				document.querySelector('#hiddenword').innerHTML = dispArray(hiddenWord);
+		}
+		else {
+	
+			console.log("letter NOT found");
+			// Only populate a guess array with the values input when the letter is not found
+			guessLetters.push(userGuess); 
 
-			}
-			else {
-	   
-				console.log("letter NOT found");
-		
-			}
-
-		// display the guessed letters
-		document.querySelector('#guesses').innerHTML = dispArray(guessLetters);
+			// update the display with the incorrectly guessed letters
+			document.querySelector('#guesses').innerHTML = dispArray(guessLetters);
+	
+		}
 	
 	};
 
