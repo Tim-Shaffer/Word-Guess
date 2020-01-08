@@ -5,11 +5,18 @@ var hiddenWord = [];
 var allowedGuesses = 8;
 // create a variable for number of guesses remaining and initialize it to the max
 var remainingGuesses = allowedGuesses;
-
+// create a variable for counting the letters found	
+var lettersFound = 0;
+// Keep track of Wins and Loses
+var win = 0;
+var loss = 0;
+// initialize the decision message variable 
+var decision = "none";
+var result = " ";
 
 // Creates an array that lists out all of the possible words to be guessed.
 // start with one word for testing to be added onto later
-var words = ["hangman", "extroverted"];
+var words = ["hangman"];
 
 // Choose a Secret Word from the list
 function getSecretWord () {
@@ -92,6 +99,20 @@ function correctGuess(hidden, guess, letter) {
 	return hidden;
 };
 
+// Display a message in the result section according to what is happening 
+function valueResult(decision) {
+	if (decision === "win") {
+		return "<p>Congratulations.  You Won!!!</p>";
+	} 
+	else if (decision === "lose") {
+		return "<p>Too bad.  You Lost.</p>";
+	} 
+	else {
+		return "<p>Keep Guessing!</p>";
+	};
+
+};
+
 // Make the main processing into a function so it can be called for any guess situation!
 function checkGuess(letter) {
 		
@@ -101,11 +122,20 @@ function checkGuess(letter) {
 		// Search the guess word to see if character is found
 		if (answer.indexOf(letter) != -1){
 
+			// match was found - increment the lettersFound variable
+			lettersFound++;
+
 			// see if the letter matches any positions in the answer and change those positions 
 			correctGuess(hiddenWord, answer, letter);
 
 			// update the page with the new results
 			document.querySelector('#hiddenword').innerHTML = dispArray(hiddenWord);
+
+			// if the number of letters correctly found === correctLettersNeeded (WINNER!!!)
+			if (correctLettersNeeded === lettersFound) {
+				win++;
+				decision = "win";
+			}
 
 		}
 		else {
@@ -126,8 +156,16 @@ function checkGuess(letter) {
 	// update the display with the Number of Remaining Guesses
 	document.querySelector('#guessesRemaining').innerHTML = "<p>Guesses Remaining: " +  remainingGuesses + "</p>";
 
+	if (remainingGuesses === 0) {
+		decision = "loss";
+	}
+	
+	//	Value the result section of the page accordingly 
+	result = valueResult(decision);
+	document.querySelector('#result').innerHTML = result;
+
 	return remainingGuesses;
-}
+};
 
 // This function is run whenever the user presses a key.
 document.onkeyup = function(event) {
@@ -144,9 +182,17 @@ document.onkeyup = function(event) {
 	// Last Guess! Calls the alert on the loss if the last guess is WRONG!
 	else {
 		if (checkGuess(userGuess) === 0) {
-			alert("Sorry, you lose!");
+			loss++;
 		}
-	}
+	};
+
+	console.log(decision);
+	console.log(result);
+
+	var scoreSheet = "<h3>Wins: " + win + "<br>Losses: " + loss + "</h3>";
+	console.log(scoreSheet);
+
+	document.querySelector('#scoresheet').innerHTML = scoreSheet;
 
 };
 
