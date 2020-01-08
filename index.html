@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Tim Shaffer | Word Guess Game </title>
+
+  <!-- Reset CSS - copied from  http://meyerweb.com/eric/tools/css/reset/  -->
+  <link rel="stylesheet" href="./assets/css/reset.css">
+
+  <!-- Link for Bootstrap Styling -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <!-- Personal Stylesheet -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row" id="game">
+            
+        </div>
+    </div>
+
+    <div class="container" style="padding: 15px;">
+        <div class="row">
+            <div class="col-sm-4" ></div>
+            <div class="col-sm-4" >
+                <h5 id="hiddenword"></h5>    
+            </div>
+            <div class="col-sm-4" ></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4" ></div>
+            <div class="col-sm-4" >
+                <h5 id="guesses"></h5>    
+            </div>
+            <div class="col-sm-4" ></div>
+        </div>
+    </div>
+
+
+
+  <script type="text/javascript">
+
+    // Creates an array that lists out all of the possible words to be guessed.
+    var wordsArray = ["hangman"];
+
+    // Create the guessLetters array
+    var guessLetters = [];
+
+    // Choose a Secret Word from the list
+    function getSecretWord () {
+        return wordsArray[Math.floor(Math.random() * wordsArray.length)]
+    };
+
+    // Populate the word to be guessed from the array of possibilities
+    var guessWord = getSecretWord();
+    
+    // Create an array to display the Guess Word as a series of underscores for the length
+    var hiddenWord = [];
+
+    // Create the array to hold the underscores of the guess word
+    for (i=0; i < guessWord.length; i++){
+        hiddenWord.push("_");
+    };
+
+    // Display an array with spaces in between characters instead of commas
+    function displayItem (arr) {
+        var toDisplay = "";
+
+        for (i=0; i < arr.length; i++) {
+            toDisplay = toDisplay + " " + arr[i];
+        }
+        return "<p>" + toDisplay + "</p>"
+    }
+
+    document.querySelector('#hiddenword').innerHTML = displayItem(hiddenWord);
+
+    // function to change the guess word from underscores to a correctly guessed letter
+    function correctGuess(hidden, guess, letter) {
+        // traverse the entire length of the array to find a match and replace with that letter
+        console.log("Inside correctGuess function");
+        for (i=0; i < guess.length; i++) {
+            console.log(guess[i]);
+            console.log(letter);
+            if(guess[i] === letter) {
+                hidden[i] = letter;
+                console.log(hidden[i]);
+            }
+        }
+
+        console.log(hidden);
+        return hidden;
+    }
+
+    // This function is run whenever the user presses a key.
+    document.onkeyup = function(event) {
+
+        // Determines which key was pressed and converts to lowercase for ease of comparison
+        var userGuess = event.key.toLowerCase();   
+
+        // Populate a guess array with the values input
+        guessLetters.push(userGuess); 
+
+        // Search the guess word to see if character is found
+        if (guessWord.indexOf(userGuess) != -1){
+            console.log("letter found");
+            // run the function to change the underscores to a letter
+            console.log(hiddenWord);
+            correctGuess(hiddenWord, guessWord, userGuess);
+            console.log(hiddenWord);
+            document.querySelector('#hiddenword').innerHTML = displayItem(hiddenWord);
+        }
+        else {
+            console.log("letter NOT found");
+        }  
+        
+        document.querySelector('#guesses').innerHTML = displayItem(guessLetters);
+
+    }
+
+  </script>
+
+</body>
+
+</html>
