@@ -34,6 +34,20 @@ document.querySelector('#hiddenword').innerHTML = dispArray(hiddenWord);
 // Create an array to store the letters guessed
 var guessLetters = [];
 
+// create a function to change the hiddenword from an underscore to a correctly guessed letter
+function correctGuess(hidden, guess, letter) {
+	// traverse the entire length of the array to find a match and replace with that letter
+	for (i=0; i < guess.length; i++) {
+
+		if(guess[i] === letter) {
+			hidden[i] = letter;
+		}
+	
+	}
+
+	return hidden;
+}
+
 
 // This function is run whenever the user presses a key.
 document.onkeyup = function(event) {
@@ -50,6 +64,9 @@ document.onkeyup = function(event) {
 	if (answer.indexOf(userGuess) != -1){
 
 		console.log("letter found");
+		console.log(hiddenWord);
+		correctGuess(hiddenWord, answer, userGuess);
+		console.log(hiddenWord);
 
 	}
 	else {
