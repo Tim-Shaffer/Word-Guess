@@ -19,6 +19,6 @@ for (i=0; i < answer.length; i++){
 };
 
 // link the answer to the HTML so it is displayed
-document.querySelector('#hiddenword').innerHTML = answer;
+document.querySelector('#hiddenword').innerHTML = hiddenWord;
 console.log(answer);
 console.log(hiddenWord);
