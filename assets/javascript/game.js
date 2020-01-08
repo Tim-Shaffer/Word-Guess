@@ -53,12 +53,18 @@ function correctGuess(hidden, guess, letter) {
 document.onkeyup = function(event) {
 
 	// Determines which key was pressed and converts to lowercase for ease of comparison
-	var userGuess = event.key.toLowerCase();   
+	var userGuess = event.key.toLowerCase();  
+	
+	// check to see if the letter was already guessed 
+	if (guessLetters.indexOf(userGuess) === -1){
 
-	// Populate a guess array with the values input
-	guessLetters.push(userGuess); 
+		// Populate a guess array with the values input
+		guessLetters.push(userGuess); 
 
-	document.querySelector('#guesses').innerHTML = dispArray(guessLetters);
+		// display the guessed letters
+		document.querySelector('#guesses').innerHTML = dispArray(guessLetters);
+	
+	};
 
 	// Search the guess word to see if character is found
 	if (answer.indexOf(userGuess) != -1){
