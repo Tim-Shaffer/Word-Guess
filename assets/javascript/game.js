@@ -34,6 +34,7 @@ document.querySelector('#hiddenword').innerHTML = dispArray(hiddenWord);
 // Create an array to store the letters guessed
 var guessLetters = [];
 
+
 // This function is run whenever the user presses a key.
 document.onkeyup = function(event) {
 
@@ -44,5 +45,17 @@ document.onkeyup = function(event) {
 	guessLetters.push(userGuess); 
 
 	document.querySelector('#guesses').innerHTML = dispArray(guessLetters);
+
+	// Search the guess word to see if character is found
+	if (answer.indexOf(userGuess) != -1){
+
+		console.log("letter found");
+
+	}
+	else {
+	   
+		console.log("letter NOT found");
+		
+	}
 
 };
