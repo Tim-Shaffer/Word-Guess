@@ -1,12 +1,21 @@
 // Creates an array that lists out all of the possible words to be guessed.
 // start with one word for testing to be added onto later
-var answer = ["hangman"];
+var words = ["hangman"];
 
 // Choose a Secret Word from the list
 function getSecretWord () {
-	return answer[Math.floor(Math.random() * answer.length)]
+	return words[Math.floor(Math.random() * words.length)]
 };
 
 // Populate the word to be guessed from the array of possibilities
-var guessWord = getSecretWord();
-console.log(guessWord);
+var answer = getSecretWord();
+
+// Create an array to display the Guess Word as a series of underscores for the length
+var hiddenWord = [];
+
+// Initialize the hiddenWord array with the underscores for the length of the guess word
+for (i=0; i < answer.length; i++){
+		hiddenWord.push("_");
+};
+console.log(answer);
+console.log(hiddenWord);
