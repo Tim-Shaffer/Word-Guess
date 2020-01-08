@@ -1,3 +1,12 @@
+// --- Variables ---
+// Create an array to display the Guess Word as a series of underscores for the length
+var hiddenWord = [];
+//Create a constant for the maximum number of wrong guesses
+var allowedGuesses = 8;
+// create a variable for number of guesses remaining and initialize it to the max
+var remainingGuesses = allowedGuesses;
+
+
 // Creates an array that lists out all of the possible words to be guessed.
 // start with one word for testing to be added onto later
 var words = ["hangman"];
@@ -9,9 +18,6 @@ function getSecretWord () {
 
 // Populate the word to be guessed from the array of possibilities
 var answer = getSecretWord();
-
-// Create an array to display the Guess Word as a series of underscores for the length
-var hiddenWord = [];
 
 // Initialize the hiddenWord array with the underscores for the length of the guess word
 for (i=0; i < answer.length; i++){
@@ -55,7 +61,7 @@ document.onkeyup = function(event) {
 	// Determines which key was pressed and converts to lowercase for ease of comparison
 	var userGuess = event.key.toLowerCase();  
 	
-	// check to see if the letter was already guessed 
+	// check to see if the letter was already guessed or already found
 	if (guessLetters.indexOf(userGuess) === -1 && hiddenWord.indexOf(userGuess) ){
 
 		// Search the guess word to see if character is found
@@ -69,13 +75,16 @@ document.onkeyup = function(event) {
 
 		}
 		else {
-	
-			console.log("letter NOT found");
+
 			// Only populate a guess array with the values input when the letter is not found
 			guessLetters.push(userGuess); 
 
 			// update the display with the incorrectly guessed letters
 			document.querySelector('#guesses').innerHTML = dispArray(guessLetters);
+
+			// Calculate the number of remaining guesses allowed as the difference between the max and the wrong guesses
+			remainingGuesses = allowedGuesses - guessLetters.length;
+			console.log(remainingGuesses);
 	
 		}
 	
