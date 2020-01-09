@@ -1,9 +1,12 @@
 // --- Global Variables ---
 var answer;
 var correctLettersNeeded;
-var result;
+
+// variables for messages back to the page based on what is happening in the game
 var decision;
+var result;
 var scoreSheet;
+
 // create a variable for number of guesses remaining
 var remainingGuesses;
 
@@ -138,13 +141,13 @@ function correctGuess(hidden, guess, letter) {
 // Display a message in the result section according to what is happening 
 function valueResult(decision) {
 	if (decision === "win") {
-		return "<p>Congratulations.  You Won!!!</p>";
+		return "<h3>Congratulations.  You Won!!!</h3>";
 	} 
 	else if (decision === "loss") {
-		return "<p>Too bad.  You Lost.</p>";
+		return "<h3>Too bad.  You Lost.</h3>";
 	} 
 	else {
-		return "<p>Keep Guessing!</p>";
+		return "<h3>Hit another key to keep guessing!</h3>";
 	};
 
 };
@@ -216,7 +219,7 @@ document.onkeyup = function(event) {
 
 	// Check to see if we need to start a new game 
 	if (startNewGame) {
-		console.log("Start New Game at beginning and after a verdict is met.")
+
 		startNewGame = initializeNewGame();
 
 		// create a variable to be used to see if all the correct letters were found 
@@ -246,7 +249,6 @@ document.onkeyup = function(event) {
 	};
 
 	//	Value the result section of the page accordingly 
-	console.log(decision);
 	result = valueResult(decision);
 	document.querySelector('#result').innerHTML = result;
 
