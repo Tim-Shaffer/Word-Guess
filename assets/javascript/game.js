@@ -1,3 +1,10 @@
+// Creates an array that lists out all of the possible words to be guessed.
+// start with one word for testing to be added onto later
+// var words = ["hangman"];  // used for testing the functionality
+var words = ["tazmanian devil"];
+// var words = ["robert", "marie", "frank", "debra", "raymond", "geoffrey", "michael", "ally", "amy", "shamsky",
+// 			"barone", "macdougall", "Stefania"];
+
 // --- Global Variables ---
 var answer;
 var correctLettersNeeded;
@@ -28,11 +35,6 @@ var hiddenWord = [];
 
 // Create an array to store the letters guessed
 var guessLetters = [];
-
-// Creates an array that lists out all of the possible words to be guessed.
-// start with one word for testing to be added onto later
-var words = ["hangman"];  // used for testing the functionality
-//var words = [];
 
 // --------------------------------------------------------------------------------------
 // Choose a Secret Word from the list
