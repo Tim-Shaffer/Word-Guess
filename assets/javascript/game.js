@@ -3,8 +3,12 @@ var answer;
 var correctLettersNeeded;
 var result;
 var decision;
+var scoreSheet;
 // create a variable for number of guesses remaining
 var remainingGuesses;
+
+// create a variable for counting the letters found	
+var lettersFound;
 
 // create a new game true\false variable set to True on an initial page load and then reset within the game itself
 var startNewGame = true;
@@ -21,9 +25,6 @@ var hiddenWord = [];
 
 // Create an array to store the letters guessed
 var guessLetters = [];
-
-// create a variable for counting the letters found	
-var lettersFound = 0;
 
 // Creates an array that lists out all of the possible words to be guessed.
 // start with one word for testing to be added onto later
@@ -51,6 +52,9 @@ function initializeNewGame() {
 
 	// initialize the remainingGuesses
 	remainingGuesses = allowedGuesses;
+
+	// initialize the letters found
+	lettersFound = 0;
 
 	// Initialize the hiddenWord array with the underscores for the length of the guess word
 	for (i=0; i < answer.length; i++){
@@ -166,7 +170,12 @@ function checkGuess(letter) {
 			if (correctLettersNeeded === lettersFound) {
 				win++;
 				decision = "win";
-			}
+
+				scoreSheet = "<h3>Wins: " + win + "<br>Losses: " + loss + "</h3>";
+				document.querySelector('#scoresheet').innerHTML = scoreSheet;
+
+				startNewGame = true;
+			};
 
 		}
 		else {
@@ -211,8 +220,8 @@ document.onkeyup = function(event) {
 		startNewGame = initializeNewGame();
 
 		// create a variable to be used to see if all the correct letters were found 
-		var correctLettersNeeded = getWinningNumber(answer);
-	}
+		correctLettersNeeded = getWinningNumber(answer);
+	};
 
 	// Determines which key was pressed and converts to lowercase for ease of comparison
 	var userGuess = event.key.toLowerCase();
@@ -228,7 +237,7 @@ document.onkeyup = function(event) {
 		if (checkGuess(userGuess) === 0) {
 			loss++;
 
-			var scoreSheet = "<h3>Wins: " + win + "<br>Losses: " + loss + "</h3>";
+			scoreSheet = "<h3>Wins: " + win + "<br>Losses: " + loss + "</h3>";
 			document.querySelector('#scoresheet').innerHTML = scoreSheet;
 
 			startNewGame = true;
@@ -237,6 +246,7 @@ document.onkeyup = function(event) {
 	};
 
 	//	Value the result section of the page accordingly 
+	console.log(decision);
 	result = valueResult(decision);
 	document.querySelector('#result').innerHTML = result;
 
