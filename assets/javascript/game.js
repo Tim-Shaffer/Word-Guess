@@ -31,7 +31,8 @@ var guessLetters = [];
 
 // Creates an array that lists out all of the possible words to be guessed.
 // start with one word for testing to be added onto later
-var words = ["hangman"];
+var words = ["hangman"];  // used for testing the functionality
+//var words = [];
 
 // --------------------------------------------------------------------------------------
 // Choose a Secret Word from the list
@@ -45,6 +46,9 @@ function getSecretWord () {
 function initializeNewGame() {
 	// Populate the word to be guessed from the array of possibilities
 	answer = getSecretWord();
+
+	// populate the variable to be used to see how many letters are in the word 
+	correctLettersNeeded = getWinningNumber(answer);
 
 	// initialize arrays used for guessing
 	guessLetters = [];
@@ -63,9 +67,6 @@ function initializeNewGame() {
 	for (i=0; i < answer.length; i++){
 		hiddenWord.push("_");
 	};
-
-	// // link the answer to the HTML so it is displayed
-	// document.querySelector('#hiddenword').innerHTML = dispArray(hiddenWord);
 
 	return false;
 
@@ -222,8 +223,6 @@ document.onkeyup = function(event) {
 
 		startNewGame = initializeNewGame();
 
-		// create a variable to be used to see if all the correct letters were found 
-		correctLettersNeeded = getWinningNumber(answer);
 	};
 
 	// Determines which key was pressed and converts to lowercase for ease of comparison
@@ -239,6 +238,9 @@ document.onkeyup = function(event) {
 	else {
 		if (checkGuess(userGuess) === 0) {
 			loss++;
+
+			// on a loss - display the word that the user missed
+			document.querySelector('#hiddenword').innerHTML = dispArray(answer);
 
 			scoreSheet = "<h3>Wins: " + win + "<br>Losses: " + loss + "</h3>";
 			document.querySelector('#scoresheet').innerHTML = scoreSheet;
