@@ -2,6 +2,9 @@
 var answer;
 var correctLettersNeeded;
 var result;
+var decision;
+// create a variable for number of guesses remaining
+var remainingGuesses;
 
 // create a new game true\false variable set to True on an initial page load and then reset within the game itself
 var startNewGame = true;
@@ -12,8 +15,6 @@ var loss = 0;
 
 //Create a variable for the maximum number of wrong guesses and initialize
 var allowedGuesses = 8;
-// create a variable for number of guesses remaining and initialize it to the max
-var remainingGuesses = allowedGuesses;
 
 // Create an array to display the Guess Word as a series of underscores for the length
 var hiddenWord = [];
@@ -23,9 +24,6 @@ var guessLetters = [];
 
 // create a variable for counting the letters found	
 var lettersFound = 0;
-
-// initialize the decision message variable 
-var decision = "none";
 
 // Creates an array that lists out all of the possible words to be guessed.
 // start with one word for testing to be added onto later
@@ -48,13 +46,19 @@ function initializeNewGame() {
 	guessLetters = [];
 	hiddenWord = [];
 
+	// initialize the result message
+	decision  = "none";
+
+	// initialize the remainingGuesses
+	remainingGuesses = allowedGuesses;
+
 	// Initialize the hiddenWord array with the underscores for the length of the guess word
 	for (i=0; i < answer.length; i++){
 		hiddenWord.push("_");
 	};
 
-	// link the answer to the HTML so it is displayed
-	document.querySelector('#hiddenword').innerHTML = dispArray(hiddenWord);
+	// // link the answer to the HTML so it is displayed
+	// document.querySelector('#hiddenword').innerHTML = dispArray(hiddenWord);
 
 	return false;
 
@@ -132,7 +136,7 @@ function valueResult(decision) {
 	if (decision === "win") {
 		return "<p>Congratulations.  You Won!!!</p>";
 	} 
-	else if (decision === "lose") {
+	else if (decision === "loss") {
 		return "<p>Too bad.  You Lost.</p>";
 	} 
 	else {
@@ -158,9 +162,6 @@ function checkGuess(letter) {
 			// see if the letter matches any positions in the answer and change those positions 
 			correctGuess(hiddenWord, answer, letter);
 
-			// update the page with the new results
-			document.querySelector('#hiddenword').innerHTML = dispArray(hiddenWord);
-
 			// if the number of letters correctly found === correctLettersNeeded (WINNER!!!)
 			if (correctLettersNeeded === lettersFound) {
 				win++;
@@ -173,8 +174,8 @@ function checkGuess(letter) {
 			// Only populate a guess array with the values input when the letter is not found
 			guessLetters.push(letter); 
 
-			// update the display with the incorrectly guessed letters
-			document.querySelector('#guesses').innerHTML = dispArray(guessLetters, 1);
+			// // update the display with the incorrectly guessed letters
+			// document.querySelector('#guesses').innerHTML = dispArray(guessLetters, 1);
 
 			// Calculate the number of remaining guesses allowed as the difference between the max and the wrong guesses
 			remainingGuesses = allowedGuesses - guessLetters.length;
@@ -187,12 +188,14 @@ function checkGuess(letter) {
 	
 	};
 
+	// update the display with the incorrectly guessed letters
+	document.querySelector('#guesses').innerHTML = dispArray(guessLetters, 1);
+
+	// update the page with the new results
+	document.querySelector('#hiddenword').innerHTML = dispArray(hiddenWord);
+
 	// update the display with the Number of Remaining Guesses
 	document.querySelector('#guessesRemaining').innerHTML = "<p>Guesses Remaining: " +  remainingGuesses + "</p>";
-
-	//	Value the result section of the page accordingly 
-	result = valueResult(decision);
-	document.querySelector('#result').innerHTML = result;
 
 	return remainingGuesses;
 };
@@ -209,7 +212,6 @@ document.onkeyup = function(event) {
 
 		// create a variable to be used to see if all the correct letters were found 
 		var correctLettersNeeded = getWinningNumber(answer);
-		console.log(correctLettersNeeded);
 	}
 
 	// Determines which key was pressed and converts to lowercase for ease of comparison
@@ -233,6 +235,10 @@ document.onkeyup = function(event) {
 
 		}
 	};
+
+	//	Value the result section of the page accordingly 
+	result = valueResult(decision);
+	document.querySelector('#result').innerHTML = result;
 
 };
 
