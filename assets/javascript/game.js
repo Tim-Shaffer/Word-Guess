@@ -13,10 +13,11 @@ var game = {
     hiddenWord: [],
     guessLetters: [],
     correctLettersNeeded: 0,
-    remainingGuesses: 0,
+    remainingGuesses: -1,
     lettersFound: 0,
     startNewGame: true,
-    decision: "none",
+    inGame: false,
+    decision: " ",
 
     // --------------------------------------------------------------------------------------
     // method to populate the word to be guessed from the array of possibilities
@@ -51,7 +52,9 @@ var game = {
             this.hiddenWord.push("_");
         };
 
-	    this.startNewGame = false;  
+        this.startNewGame = false;  
+        
+        this.inGame = true;
 
     },
     // --------------------------------------------------------------------------------------
@@ -209,9 +212,12 @@ function valueResult(str) {
 	else if (str === "loss") {
 		return "<h3>Too bad.  You Lost.</h3>";
 	} 
-	else {
+	else if (str === "none") {
 		return "<h3>Hit another key to keep guessing!</h3>";
-	};
+    }
+    else {
+        return "";
+    };
 
 };
 // --------------------------------------------------------------------------------------
@@ -241,7 +247,7 @@ document.onkeyup = function(event) {
         };
     }
 
-    else if (!game.startNewGame) {
+    else if (game.inGame) {
 
         // Determines which key was pressed and converts to lowercase for ease of comparison
         var userGuess = event.key.toLowerCase();
@@ -272,6 +278,9 @@ document.onkeyup = function(event) {
                 // show the instructions to start a new game
                 document.getElementById("game").style.display = 'block';
 
+                // no longer in a game until the user presses the spacebar again
+                game.inGame = false;
+
             } else if (game.decision === "loss"){
                 // process a loss
                 loss++;
@@ -284,6 +293,9 @@ document.onkeyup = function(event) {
 
                 // show the instructions to start a new game
                 document.getElementById("game").style.display = 'block';
+
+                // no longer in a game until the user presses the spacebar again
+                game.inGame = false;
             }
 
         };
@@ -294,7 +306,10 @@ document.onkeyup = function(event) {
     document.querySelector('#guesses').innerHTML = dispArray(game.guessLetters, 1);
 
     // update the display with the number of remaining guesses
-    document.querySelector('#guessesRemaining').innerHTML = "<p>Guesses Remaining: " +  game.remainingGuesses + "</p>";
+    // adding logic to only display after game has been started in case user presses something other than spacebar
+    if (game.remainingGuesses > -1) {
+        document.querySelector('#guessesRemaining').innerHTML = "<p>Guesses Remaining: " +  game.remainingGuesses + "</p>";
+    }
 
     // update the display with the result information
     document.querySelector('#result').innerHTML = valueResult(game.decision);
