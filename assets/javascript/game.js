@@ -2,8 +2,11 @@
 // start with one word for testing to be added onto later
 // var words = ["hangman"];  // used for testing the functionality
 var words = ["robert", "marie", "frank", "debra", "raymond", "geoffrey", "michael", "ally", "amy", "shamsky",
-"barone", "macdougall", "Stefania"];
+"barone", "macdougall", "stefania"];
 
+// --------------------------------------------------------------------------------------
+// create a game object
+// --------------------------------------------------------------------------------------
 var game = {
     answer: "",
     index: 0,
@@ -16,14 +19,16 @@ var game = {
     decision: "none",
 
     // --------------------------------------------------------------------------------------
-    // Populate the word to be guessed from the array of possibilities
+    // method to populate the word to be guessed from the array of possibilities
+    // --------------------------------------------------------------------------------------
     initializeNewGame: function () {
 
         // get index of the answer to use for sounds and images arrays
         this.index = Math.floor(Math.random() * words.length);
 
         // Populate the word to be guessed from the array of possibilities
-        this.answer = words[this.index];
+        // convert to lowercase in case it was entered into the list with any capitals
+        this.answer = words[this.index].toLowerCase();
 
         // populate the variable to be used to see how many letters are in the word 
         this.correctLettersNeeded = getWinningNumber(this.answer);
@@ -50,9 +55,12 @@ var game = {
 
     },
     // --------------------------------------------------------------------------------------
+    // end of initializeNewGame method
+    // --------------------------------------------------------------------------------------
 
     // --------------------------------------------------------------------------------------
-    // Make the main processing into a function so it can be called for any guess situation!
+    // method to take the letter entered and process against the rules of the game
+    // --------------------------------------------------------------------------------------
     checkGuess: function (letter) {
 
         // check to see if the letter was already guessed or already found
@@ -71,6 +79,7 @@ var game = {
                 if (this.correctLettersNeeded === this.lettersFound) {
 
                     this.decision = "win";
+
                     // get ready for the next game
                     this.startNewGame = true;
                 };
@@ -78,17 +87,17 @@ var game = {
             }
             else {
 
-                // Only populate a guess array with the values input when the letter is not found
+                // Only populate the guess array with the values input when the letter is not found
                 this.guessLetters.push(letter); 
-
-                // // update the display with the incorrectly guessed letters
-                // document.querySelector('#guesses').innerHTML = dispArray(guessLetters, 1);
 
                 // Calculate the number of remaining guesses allowed as the difference between the max and the wrong guesses
                 this.remainingGuesses = allowedGuesses - this.guessLetters.length;
 
+                // when this wrong guess takes the reamining guesses allowed to 0  (LOSS)
                 if (this.remainingGuesses === 0) {
+                    
                     this.decision = "loss";
+                    
                     // get ready for the next game
                     this.startNewGame = true;
                 }
@@ -99,8 +108,13 @@ var game = {
 
     },
     // --------------------------------------------------------------------------------------
+    // end of checkGuess method
+    // --------------------------------------------------------------------------------------
 
 };
+// --------------------------------------------------------------------------------------
+// end of game object
+// --------------------------------------------------------------------------------------
 
 // Global Variables
 var scoreSheet = "";
@@ -114,6 +128,7 @@ var allowedGuesses = 8;
 
 // --------------------------------------------------------------------------------------
 // function to change the hiddenword from an underscore to a correctly guessed letter
+// --------------------------------------------------------------------------------------
 function correctGuess(hidden, guess, letter) {
 	// traverse the entire length of the array to find a match and replace with that letter
 	for (i=0; i < guess.length; i++) {
@@ -127,10 +142,13 @@ function correctGuess(hidden, guess, letter) {
 	return hidden;
 };
 // --------------------------------------------------------------------------------------
+// end of correctGuess function
+// --------------------------------------------------------------------------------------
 
 // --------------------------------------------------------------------------------------
 // function to display an array with spaces in between characters instead of commas
-function dispArray (arr, style=0) {
+// --------------------------------------------------------------------------------------
+function dispArray(arr, style=0) {
 	var toDisplay = "";
 
 	// Allow for function to work in multiple case scenarios
@@ -157,10 +175,13 @@ function dispArray (arr, style=0) {
 	return "<p>" + toDisplay + "</p>"
 };
 // --------------------------------------------------------------------------------------
+// end of dispArray function
+// --------------------------------------------------------------------------------------
 
 // --------------------------------------------------------------------------------------
 // function to calculate the number of unique letters in the word for the number of correct guesses needed to win
-function getWinningNumber (str) {
+// --------------------------------------------------------------------------------------
+function getWinningNumber(str) {
 	// create a new array from the string but only when the letter is unique
 	var unique = [];
 	// the first letter always needs to be counted at least once
@@ -175,9 +196,12 @@ function getWinningNumber (str) {
 	return unique.length;
 };
 // --------------------------------------------------------------------------------------
+// end of getWinningNumber function
+// --------------------------------------------------------------------------------------
 
 // --------------------------------------------------------------------------------------
 // function to u[date the message for the result section  
+// --------------------------------------------------------------------------------------
 function valueResult(str) {
 	if (str === "win") {
 		return "<h3>Congratulations.  You Won!!!</h3>";
@@ -191,10 +215,12 @@ function valueResult(str) {
 
 };
 // --------------------------------------------------------------------------------------
-
+// end of valueResult function
+// --------------------------------------------------------------------------------------
 
 // --------------------------------------------------------------------------------------
-// This function is run whenever the user presses a key.
+// This functionality is run whenever the user presses a key.
+// --------------------------------------------------------------------------------------
 document.onkeyup = function(event) {
 
     // Check to see if we need to start a new game     
@@ -215,6 +241,10 @@ document.onkeyup = function(event) {
         // Determine what to do next
         if (game.decision === "none") {
             // continue playing
+            
+            // display the page with the hidden word
+            document.querySelector('#hiddenword').innerHTML = dispArray(game.hiddenWord);
+
         } 
         else if (game.decision === "win") {
             // process a win
@@ -223,16 +253,19 @@ document.onkeyup = function(event) {
             // update the scoresheet
             scoreSheet = "<h3>Wins: " + win + "<br>Losses: " + loss + "</h3>";
 
+            // display the page with the hidden word
+            document.querySelector('#hiddenword').innerHTML = dispArray(game.hiddenWord);
+
         } else if (game.decision === "loss"){
             // process a loss
             loss++;
 
             // update the scoresheet
             scoreSheet = "<h3>Wins: " + win + "<br>Losses: " + loss + "</h3>";
+
+            // display the page with the answer
+            document.querySelector('#hiddenword').innerHTML = dispArray(game.answer.toUpperCase());
         }
-        
-        // update the page with the hidden word
-        document.querySelector('#hiddenword').innerHTML = dispArray(game.hiddenWord);
         
         // update the display with the incorrectly guessed letters
 	    document.querySelector('#guesses').innerHTML = dispArray(game.guessLetters, 1);
@@ -249,4 +282,5 @@ document.onkeyup = function(event) {
 	}
     
 };
+
 
