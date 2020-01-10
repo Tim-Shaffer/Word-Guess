@@ -223,63 +223,78 @@ function valueResult(str) {
 // --------------------------------------------------------------------------------------
 document.onkeyup = function(event) {
 
-    // Check to see if we need to start a new game     
-    if (game.startNewGame) {
+    // check if the spacebar was pressed (unicode 32) so that we can present the hidden word without using a guess
+    var x = event.keyCode;
+    if (x === 32) {
+        
+        // Check to see if we need to start a new game     
+        if (game.startNewGame) {
 
-		game.initializeNewGame();
+            game.initializeNewGame();
+
+            // display the page with the hidden word
+            document.querySelector('#hiddenword').innerHTML = dispArray(game.hiddenWord);
+
+            // update the display with the result information
+            // document.querySelector('#result').innerHTML = valueResult(game.decision);
+
+        };
+    }
+
+    else if (!game.startNewGame) {
+
+        // Determines which key was pressed and converts to lowercase for ease of comparison
+        var userGuess = event.key.toLowerCase();
+        
+        // Only perform this processing while there are guesses allowed!
+        if (game.remainingGuesses > 0) {	
+
+            game.checkGuess(userGuess);
+
+            // Determine what to do next
+            if (game.decision === "none") {
+                // continue playing
+                
+                // display the page with the hidden word
+                document.querySelector('#hiddenword').innerHTML = dispArray(game.hiddenWord);
+
+            } 
+            else if (game.decision === "win") {
+                // process a win
+                win++;
+                
+                // update the scoresheet
+                scoreSheet = "<h3>Wins: " + win + "<br>Losses: " + loss + "</h3>";
+
+                // display the page with the hidden word
+                document.querySelector('#hiddenword').innerHTML = dispArray(game.hiddenWord);
+
+            } else if (game.decision === "loss"){
+                // process a loss
+                loss++;
+
+                // update the scoresheet
+                scoreSheet = "<h3>Wins: " + win + "<br>Losses: " + loss + "</h3>";
+
+                // display the page with the answer
+                document.querySelector('#hiddenword').innerHTML = dispArray(game.answer.toUpperCase());
+            }
+
+        };
 
     };
-
-    // Determines which key was pressed and converts to lowercase for ease of comparison
-    var userGuess = event.key.toLowerCase();
     
-    // Only perform this processing while there are guesses allowed!
-	if (game.remainingGuesses > 0) {	
+    // update the display with the incorrectly guessed letters
+    document.querySelector('#guesses').innerHTML = dispArray(game.guessLetters, 1);
 
-        game.checkGuess(userGuess);
+    // update the display with the number of remaining guesses
+    document.querySelector('#guessesRemaining').innerHTML = "<p>Guesses Remaining: " +  game.remainingGuesses + "</p>";
 
-        // Determine what to do next
-        if (game.decision === "none") {
-            // continue playing
-            
-            // display the page with the hidden word
-            document.querySelector('#hiddenword').innerHTML = dispArray(game.hiddenWord);
+    // update the display with the result information
+    document.querySelector('#result').innerHTML = valueResult(game.decision);
 
-        } 
-        else if (game.decision === "win") {
-            // process a win
-            win++;
-            
-            // update the scoresheet
-            scoreSheet = "<h3>Wins: " + win + "<br>Losses: " + loss + "</h3>";
-
-            // display the page with the hidden word
-            document.querySelector('#hiddenword').innerHTML = dispArray(game.hiddenWord);
-
-        } else if (game.decision === "loss"){
-            // process a loss
-            loss++;
-
-            // update the scoresheet
-            scoreSheet = "<h3>Wins: " + win + "<br>Losses: " + loss + "</h3>";
-
-            // display the page with the answer
-            document.querySelector('#hiddenword').innerHTML = dispArray(game.answer.toUpperCase());
-        }
-        
-        // update the display with the incorrectly guessed letters
-	    document.querySelector('#guesses').innerHTML = dispArray(game.guessLetters, 1);
-
-        // update the display with the number of remaining guesses
-        document.querySelector('#guessesRemaining').innerHTML = "<p>Guesses Remaining: " +  game.remainingGuesses + "</p>";
-        
-        // update the display with the result information
-        document.querySelector('#result').innerHTML = valueResult(game.decision);
-
-        // update the display with the scoresheet information
-        document.querySelector('#scoresheet').innerHTML = scoreSheet;
-
-	}
+    // update the display with the scoresheet information
+    document.querySelector('#scoresheet').innerHTML = scoreSheet;
     
 };
 
