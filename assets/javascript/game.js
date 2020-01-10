@@ -235,8 +235,8 @@ document.onkeyup = function(event) {
             // display the page with the hidden word
             document.querySelector('#hiddenword').innerHTML = dispArray(game.hiddenWord);
 
-            // update the display with the result information
-            // document.querySelector('#result').innerHTML = valueResult(game.decision);
+            // hide the instructions for starting a new game
+            document.getElementById("game").style.display = 'none';
 
         };
     }
@@ -269,6 +269,9 @@ document.onkeyup = function(event) {
                 // display the page with the hidden word
                 document.querySelector('#hiddenword').innerHTML = dispArray(game.hiddenWord);
 
+                // show the instructions to start a new game
+                document.getElementById("game").style.display = 'block';
+
             } else if (game.decision === "loss"){
                 // process a loss
                 loss++;
@@ -278,6 +281,9 @@ document.onkeyup = function(event) {
 
                 // display the page with the answer
                 document.querySelector('#hiddenword').innerHTML = dispArray(game.answer.toUpperCase());
+
+                // show the instructions to start a new game
+                document.getElementById("game").style.display = 'block';
             }
 
         };
