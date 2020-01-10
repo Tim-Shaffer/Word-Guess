@@ -1,15 +1,41 @@
 .container {
-    style="padding: 15px;
+    style: padding: 15px;
 }
 
 #game {
-    background-color: #4aaaa5;
+    background-color: orange;
     font-family: Georgia, Times, "Times New Roman", serif;
     text-align: center;
-    color: #ffffff;
+    color: black;
     z-index: 1;
     position: absolute;
     bottom: 1em;
     left: 0em;
     width: 100%;
+    /* Trying Basic CSS Animation to change the Masthead color - copied from w3schools.com */
+    -webkit-animation-name: flash; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+    -webkit-animation-iteration-count: 9; /* Safari 4.0 - 8.0 */
+    -webkit-animation-direction: alternate; /* Safari 4.0 - 8.0 */
+    animation-name: flash;
+    animation-duration: 1s;
+    animation-iteration-count: 9;
+    animation-direction: alternate;
+  }
+
+  /* CSS Animation to cause the start game line to change color */
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes flash {
+    from {background-color: orange;}
+    to {background-color: red}
+    from {color: white;}
+    to {color: black}
+  }
+  
+  /* Standard syntax */
+  @keyframes flash {
+    from {background-color: orange;}
+    to {background-color: red;}
+    from {color: white;}
+    to {color: black}
   }
