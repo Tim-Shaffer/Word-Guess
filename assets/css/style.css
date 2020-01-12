@@ -39,3 +39,10 @@
     from {color: white;}
     to {color: black}
   }
+
+  #hiddenword {
+    background-color: lightgray;
+    text-align: center;
+    padding: 5px;
+    display: none;
+  }

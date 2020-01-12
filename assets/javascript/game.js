@@ -213,7 +213,7 @@ function valueResult(str) {
 		return "<h3>Too bad.  You Lost.</h3>";
 	} 
 	else if (str === "none") {
-		return "<h3>Hit another key to keep guessing!</h3>";
+		return "<h3>What's your Guess?</h3>";
     }
     else {
         return "";
@@ -243,6 +243,9 @@ document.onkeyup = function(event) {
 
             // hide the instructions for starting a new game
             document.getElementById("game").style.display = 'none';
+
+            // display the hidden word
+            document.getElementById("hiddenword").style.display = 'block';
 
         };
     }
