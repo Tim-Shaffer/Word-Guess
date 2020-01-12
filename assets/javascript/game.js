@@ -273,7 +273,7 @@ document.onkeyup = function(event) {
                 win++;
                 
                 // update the scoresheet
-                scoreSheet = "<h3>Wins: " + win + "<br>Losses: " + loss + "</h3>";
+                scoreSheet = "<h3>Wins: " + win + "     Losses: " + loss + "</h3>";
 
                 // display the page with the hidden word
                 document.querySelector('#hiddenword').innerHTML = dispArray(game.hiddenWord);
@@ -289,7 +289,7 @@ document.onkeyup = function(event) {
                 loss++;
 
                 // update the scoresheet
-                scoreSheet = "<h3>Wins: " + win + "<br>Losses: " + loss + "</h3>";
+                scoreSheet = "<h3>Wins: " + win + " Losses: " + loss + "</h3>";
 
                 // display the page with the answer
                 document.querySelector('#hiddenword').innerHTML = dispArray(game.answer.toUpperCase());
