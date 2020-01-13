@@ -114,35 +114,35 @@ var game = {
     // end of checkGuess method
     // --------------------------------------------------------------------------------------
 
-    };
-    // --------------------------------------------------------------------------------------
-    // end of game object
-    // --------------------------------------------------------------------------------------
+};
+// --------------------------------------------------------------------------------------
+// end of game object
+// --------------------------------------------------------------------------------------
 
-    // Global Variables
-    var scoreSheet = "";
+// Global Variables
+var scoreSheet = "";
 
-    // Keep track of Wins and Loses
-    var win = 0;
-    var loss = 0;
+// Keep track of Wins and Loses
+var win = 0;
+var loss = 0;
 
-    //Create a variable for the maximum number of wrong guesses and initialize
-    var allowedGuesses = 8;
+//Create a variable for the maximum number of wrong guesses and initialize
+var allowedGuesses = 8;
 
-    // --------------------------------------------------------------------------------------
-    // function to change the hiddenword from an underscore to a correctly guessed letter
-    // --------------------------------------------------------------------------------------
-    function correctGuess(hidden, guess, letter) {
-        // traverse the entire length of the array to find a match and replace with that letter
-        for (i=0; i < guess.length; i++) {
+// --------------------------------------------------------------------------------------
+// function to change the hiddenword from an underscore to a correctly guessed letter
+// --------------------------------------------------------------------------------------
+function correctGuess(hidden, guess, letter) {
+    // traverse the entire length of the array to find a match and replace with that letter
+    for (i=0; i < guess.length; i++) {
 
-            if(guess[i] === letter) {
-                hidden[i] = letter;
-            }
-	
-	}
+        if(guess[i] === letter) {
+            hidden[i] = letter;
+        }
 
-	return hidden;
+}
+
+return hidden;
 };
 // --------------------------------------------------------------------------------------
 // end of correctGuess function
@@ -326,5 +326,8 @@ document.onkeyup = function(event) {
     document.querySelector('#scoresheet').innerHTML = scoreSheet;
     
 };
+// --------------------------------------------------------------------------------------
+// end of onkeyup function
+// --------------------------------------------------------------------------------------
 
 
