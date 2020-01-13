@@ -21,6 +21,15 @@
 
 <body>
 
+    <!-- copied tune and audio tag from http://www.televisiontunes.com/Everybody_Loves_Raymond.html -->
+    <!-- This will play the theme song on a loop during the game play.  It works in Edge but I needed the controls to get it to work in Chrome -->
+    <!--  <audio id="jp_audio_0" controls autoplay loop preload="metadata" src="./assets/audio//Everybody%20Loves%20Raymond.mp3"></audio> -->
+    <iframe src="./assets/audio/250-milliseconds-of-silence.mp3" allow="autoplay" id="audio" style="display:none"></iframe>
+    <audio id="jp_audio_0" autoplay loop preload="metadata">
+        <source src="./assets/audio//Everybody%20Loves%20Raymond.mp3" type="audio/mp3">
+    </audio> 
+
+
     <!-- Container for the Theme Picture -->
     <div class="container">
         <div class="row">
