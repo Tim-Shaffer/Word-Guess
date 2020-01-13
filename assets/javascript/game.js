@@ -65,7 +65,7 @@ var game = {
     // method to take the letter entered and process against the rules of the game
     // --------------------------------------------------------------------------------------
     checkGuess: function (letter) {
-
+        
         // check to see if the letter was already guessed or already found
         if (this.guessLetters.indexOf(letter) === -1 && this.hiddenWord.indexOf(letter) === -1 ){
 
@@ -114,31 +114,31 @@ var game = {
     // end of checkGuess method
     // --------------------------------------------------------------------------------------
 
-};
-// --------------------------------------------------------------------------------------
-// end of game object
-// --------------------------------------------------------------------------------------
+    };
+    // --------------------------------------------------------------------------------------
+    // end of game object
+    // --------------------------------------------------------------------------------------
 
-// Global Variables
-var scoreSheet = "";
+    // Global Variables
+    var scoreSheet = "";
 
-// Keep track of Wins and Loses
-var win = 0;
-var loss = 0;
+    // Keep track of Wins and Loses
+    var win = 0;
+    var loss = 0;
 
-//Create a variable for the maximum number of wrong guesses and initialize
-var allowedGuesses = 8;
+    //Create a variable for the maximum number of wrong guesses and initialize
+    var allowedGuesses = 8;
 
-// --------------------------------------------------------------------------------------
-// function to change the hiddenword from an underscore to a correctly guessed letter
-// --------------------------------------------------------------------------------------
-function correctGuess(hidden, guess, letter) {
-	// traverse the entire length of the array to find a match and replace with that letter
-	for (i=0; i < guess.length; i++) {
+    // --------------------------------------------------------------------------------------
+    // function to change the hiddenword from an underscore to a correctly guessed letter
+    // --------------------------------------------------------------------------------------
+    function correctGuess(hidden, guess, letter) {
+        // traverse the entire length of the array to find a match and replace with that letter
+        for (i=0; i < guess.length; i++) {
 
-		if(guess[i] === letter) {
-			hidden[i] = letter;
-		}
+            if(guess[i] === letter) {
+                hidden[i] = letter;
+            }
 	
 	}
 
@@ -254,52 +254,57 @@ document.onkeyup = function(event) {
 
         // Determines which key was pressed and converts to lowercase for ease of comparison
         var userGuess = event.key.toLowerCase();
+
+        // Verify that the key pressesd was NOT a Number first so that numbers aren't checked and counted as incorrect guesses.
+        if (!Number.isFinite(parseInt(userGuess))){
         
-        // Only perform this processing while there are guesses allowed!
-        if (game.remainingGuesses > 0) {	
+            // Only perform this processing while there are guesses allowed!
+            if (game.remainingGuesses > 0) {	
 
-            game.checkGuess(userGuess);
+                game.checkGuess(userGuess);
 
-            // Determine what to do next
-            if (game.decision === "none") {
-                // continue playing
-                
-                // display the page with the hidden word
-                document.querySelector('#hiddenword').innerHTML = dispArray(game.hiddenWord);
+                // Determine what to do next
+                if (game.decision === "none") {
+                    // continue playing
+                    
+                    // display the page with the hidden word
+                    document.querySelector('#hiddenword').innerHTML = dispArray(game.hiddenWord);
 
-            } 
-            else if (game.decision === "win") {
-                // process a win
-                win++;
-                
-                // update the scoresheet
-                scoreSheet = "<h3>Wins: " + win + "     Losses: " + loss + "</h3>";
+                } 
+                else if (game.decision === "win") {
+                    // process a win
+                    win++;
+                    
+                    // update the scoresheet
+                    scoreSheet = "<h3>Wins: " + win + "     Losses: " + loss + "</h3>";
 
-                // display the page with the hidden word
-                document.querySelector('#hiddenword').innerHTML = dispArray(game.hiddenWord);
+                    // display the page with the hidden word
+                    document.querySelector('#hiddenword').innerHTML = dispArray(game.hiddenWord);
 
-                // show the instructions to start a new game
-                document.getElementById("game").style.display = 'block';
+                    // show the instructions to start a new game
+                    document.getElementById("game").style.display = 'block';
 
-                // no longer in a game until the user presses the spacebar again
-                game.inGame = false;
+                    // no longer in a game until the user presses the spacebar again
+                    game.inGame = false;
 
-            } else if (game.decision === "loss"){
-                // process a loss
-                loss++;
+                } else if (game.decision === "loss"){
+                    // process a loss
+                    loss++;
 
-                // update the scoresheet
-                scoreSheet = "<h3>Wins: " + win + " Losses: " + loss + "</h3>";
+                    // update the scoresheet
+                    scoreSheet = "<h3>Wins: " + win + " Losses: " + loss + "</h3>";
 
-                // display the page with the answer
-                document.querySelector('#hiddenword').innerHTML = dispArray(game.answer.toUpperCase());
+                    // display the page with the answer
+                    document.querySelector('#hiddenword').innerHTML = dispArray(game.answer.toUpperCase());
 
-                // show the instructions to start a new game
-                document.getElementById("game").style.display = 'block';
+                    // show the instructions to start a new game
+                    document.getElementById("game").style.display = 'block';
 
-                // no longer in a game until the user presses the spacebar again
-                game.inGame = false;
-            }
+                    // no longer in a game until the user presses the spacebar again
+                    game.inGame = false;
+                }
+
+            };
 
         };
 
