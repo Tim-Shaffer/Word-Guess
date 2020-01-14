@@ -2,7 +2,7 @@
 // start with one word for testing to be added onto later
 // var words = ["hangman"];  // used for testing the functionality
 var words = ["robert", "marie", "frank", "debra", "raymond", "geoffrey", "michael", "ally", "amy", "shamsky",
-"barone", "macdougall", "stefania"];
+"barone", "macdougall", "stefania", "peter", "lois", "warren"];
 
 // --------------------------------------------------------------------------------------
 // create a game object
