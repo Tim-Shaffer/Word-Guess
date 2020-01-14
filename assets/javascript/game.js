@@ -274,6 +274,11 @@ document.onkeyup = function(event) {
                 else if (game.decision === "win") {
                     // process a win
                     win++;
+
+                    // play the winning sound - functionality found at https://www.quora.com/How-do-you-play-audio-files-on-Javascript
+                    var audio = new Audio();
+                    audio.src = "./assets/audio/Robert Audio.wav";
+                    audio.play();  
                     
                     // update the scoresheet
                     scoreSheet = "<h3>Wins: " + win + "     Losses: " + loss + "</h3>";
@@ -290,6 +295,11 @@ document.onkeyup = function(event) {
                 } else if (game.decision === "loss"){
                     // process a loss
                     loss++;
+
+                    // play the losing sound - functionality found at https://www.quora.com/How-do-you-play-audio-files-on-Javascript
+                    var audio = new Audio();
+                    audio.src = "./assets/audio/NO NO NO.mp3";
+                    audio.play();
 
                     // update the scoresheet
                     scoreSheet = "<h3>Wins: " + win + " Losses: " + loss + "</h3>";
