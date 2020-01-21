@@ -1,6 +1,8 @@
 # Word-Guess
 Word Guess Game
 
+* Link directly to the page here: https://tim-shaffer.github.io/Word-Guess/
+
 The Word Guess game was built with an **"Everybody Loves Raymond"** theme.
 
 The object of the game is to guess the word associated with the popular show by selecting one letter at a time. 
