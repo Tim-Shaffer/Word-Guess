@@ -16,4 +16,41 @@ The game continues until the word is revealed or there are no guesses remaining.
 
 Since the words to be guessed are selected randomly from a provided list, it is possible to get the same word more than once while playing the game.
 
+### Game Play
+
+1. Visit the page to start:  https://tim-shaffer.github.io/Word-Guess/
+1. The Main Screen will be displayed where you will need to "Press the Spacebar to Start A New Game"
+
+    ![Image of Startup](./assets/images/Screenshots/Startup.jpg)
+
+1. With the release of the Spacebar, a new word to guess is determined and presented with each `_` representing a letter in the word to be guessed.
+
+	![Image of New Word](./assets/images/Screenshots/NewWord.jpg)
+
+1. In this case, the word has 7 letters.  Simply press a letter key to guess that letter.  Matches will show in the correct position.
+
+    ![Image of Correct Guess](./assets/images/Screenshots/CorrectGuess.jpg)
+
+1. Correct Guesses do **NOT** count against you, but you only get 8 incorrect guesses.
+
+    ![Image of Incorrect Guess](./assets/images/Screenshots/IncorrectGuess.jpg)
+
+1. Continue to Guess the letters in the word 
+
+    ![Image of Incorrect Guess 2](./assets/images/Screenshots/IncorrectGuess2.jpg)
+
+1. If you run out of guesses, the game is considered a loss.  The word will be displayed in all **CAPS** and the loss total incremented.
+
+    ![Image of Loss](./assets/images/Screenshots/Loss.jpg)
+
+1. Press the Spacebar to get a New Word. The Total Wins and Losses is kept. Continue playing with the new word in the same manner as before.
+
+    ![Image of Correct Guess 2](./assets/images/Screenshots/CorrectGuess2.jpg)
+
+1. Successfully guessing all the letters in the word before running out of guesses will count as a win.  All the letters will be filled in by your guesses in the display and the win total incremented.
+
+    ![Image of Win](./assets/images/Screenshots/Win.jpg)
+
+1. Continue to play as much as you would like!!!
+
 
